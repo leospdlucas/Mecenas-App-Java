@@ -1,0 +1,1 @@
+package app.mecenas.server; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; @SpringBootApplication public class MecenasApplication{ public static void main(String[] args){ SpringApplication.run(MecenasApplication.class,args);} }

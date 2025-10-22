@@ -1,0 +1,1 @@
+package app.mecenas.server.repo; import app.mecenas.server.domain.Campaign; import org.springframework.data.jpa.repository.JpaRepository; import java.util.Optional; public interface CampaignRepo extends JpaRepository<Campaign,Long>{ Optional<Campaign> findByWorkId(Long workId);}

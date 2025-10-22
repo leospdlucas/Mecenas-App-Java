@@ -1,0 +1,1 @@
+package app.mecenas.server.repo; import app.mecenas.server.domain.Work; import org.springframework.data.jpa.repository.JpaRepository; public interface WorkRepo extends JpaRepository<Work,Long>{}

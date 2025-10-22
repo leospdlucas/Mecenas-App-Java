@@ -1,0 +1,1 @@
+package app.mecenas.server.repo; import app.mecenas.server.domain.ContractOffer; import org.springframework.data.jpa.repository.JpaRepository; public interface ContractOfferRepo extends JpaRepository<ContractOffer,Long>{}

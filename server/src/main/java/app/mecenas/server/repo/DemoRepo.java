@@ -1,0 +1,1 @@
+package app.mecenas.server.repo; import app.mecenas.server.domain.Demo; import org.springframework.data.jpa.repository.JpaRepository; public interface DemoRepo extends JpaRepository<Demo,Long>{}

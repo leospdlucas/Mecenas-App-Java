@@ -1,0 +1,20 @@
+
+<!doctype html>
+<html><head><meta charset="utf-8"><title th:text="${work != null} ? ${work.titulo} : 'Obra'">Obra</title>
+<style>body{font-family:system-ui,Arial;margin:0} header{padding:16px 24px;border-bottom:1px solid #eee}
+main{padding:24px;max-width:920px;margin:0 auto} .viewer{position:relative;height:70vh;background:#f5f5f5;border-radius:12px;overflow:hidden}
+.water{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;opacity:.25;transform:rotate(-15deg);font-weight:600;letter-spacing:2px}
+iframe,img,video,audio{width:100%;height:100%;object-fit:contain}</style></head>
+<body><header><a href="/">Mecenas</a></header><main>
+<h1 th:text="${work.titulo}">Obra</h1><p th:text="${work.descricao}">Descrição</p>
+<div class="viewer"><div class="water" th:text="${watermark}">user#0 • 2025-01-01</div>
+  <div th:if="${demo != null}">
+    <iframe th:if="${demo.mimeType=='application/pdf'}" th:src="${demo.storageUrl} + '#toolbar=0&navpanes=0'"></iframe>
+    <img th:if="${#strings.startsWith(demo.mimeType,'image/')}" th:src="${demo.storageUrl}" />
+    <video controls th:if="${#strings.startsWith(demo.mimeType,'video/')}" th:src="${demo.storageUrl}"></video>
+    <audio controls th:if="${#strings.startsWith(demo.mimeType,'audio/')}" th:src="${demo.storageUrl}"></audio>
+    <iframe th:if="${!(#strings.startsWith(demo.mimeType,'image/') || #strings.startsWith(demo.mimeType,'video/') || #strings.startsWith(demo.mimeType,'audio/') || demo.mimeType=='application/pdf')}" th:src="${demo.storageUrl}"></iframe>
+  </div>
+  <div th:if="${demo == null}" style="display:grid;place-items:center;color:#999">Sem demo</div>
+</div>
+</main></body></html>

@@ -1,0 +1,1 @@
+package app.mecenas.server.repo; import app.mecenas.server.domain.Pledge; import org.springframework.data.jpa.repository.JpaRepository; public interface PledgeRepo extends JpaRepository<Pledge,Long>{}
