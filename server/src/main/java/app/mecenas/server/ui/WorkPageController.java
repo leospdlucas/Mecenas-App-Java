@@ -4,7 +4,9 @@ import app.mecenas.server.repo.*; import app.mecenas.server.security.Auth; impor
 @Controller public class WorkPageController {
   private final WorkRepo works; private final DemoRepo demos; private final Auth auth;
   public WorkPageController(WorkRepo w, DemoRepo d, Auth a){ this.works=w; this.demos=d; this.auth=a; }
+
   @GetMapping("/") public String home(){ return "home"; }
+
   @GetMapping("/works/{id}") public String view(@PathVariable Long id, Model model){
     var w = works.findById(id).orElse(null);
     var d = demos.findAll().stream().filter(x->x.getWork().getId().equals(id)).findFirst().orElse(null);
