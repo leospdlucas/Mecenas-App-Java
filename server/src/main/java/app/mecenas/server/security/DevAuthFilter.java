@@ -4,7 +4,7 @@ import app.mecenas.server.domain.User; import app.mecenas.server.repo.UserRepo;
 import jakarta.servlet.*; import jakarta.servlet.http.*; import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority; import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component; import org.springframework.web.filter.OncePerRequestFilter;
-import java.io.IOException; import java.util.Arrays; import java.util.stream.Collectors;
+import java.io.IOException; import java.util.stream.Collectors;
 @Component public class DevAuthFilter extends OncePerRequestFilter {
   private final UserRepo users; public DevAuthFilter(UserRepo users){ this.users=users; }
   @Override protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {
