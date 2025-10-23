@@ -3,6 +3,7 @@ package app.mecenas.server.bootstrap;
 import app.mecenas.server.domain.*; import app.mecenas.server.repo.*; import org.springframework.boot.CommandLineRunner; import org.springframework.context.annotation.Bean; import org.springframework.context.annotation.Configuration;
 import java.time.Instant;
 @Configuration public class Seed {
+
   @Bean CommandLineRunner seed(UserRepo users, WorkRepo works, DemoRepo demos, CampaignRepo campaigns){
     return args -> {
       var admin = users.findByEmail("admin@mecenas.app").orElseGet(()->{ var u=new User(); u.setEmail("admin@mecenas.app"); u.setRoles("ADMIN"); return users.save(u); });

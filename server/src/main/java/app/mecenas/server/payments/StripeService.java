@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Value; import org.springfram
   public StripeService(@Value("${stripe.secretKey}") String key){ Stripe.apiKey = key; }
   public String donationCheckout(String success, String cancel, String name, long amount, Map<String,String> md) throws StripeException {
     var params = SessionCreateParams.builder().setMode(SessionCreateParams.Mode.PAYMENT)
-      .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-      .addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L)
-        .setPriceData(SessionCreateParams.LineItem.PriceData.builder().setCurrency("brl").setUnitAmount(amount)
-          .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder().setName(name).build()).build()).build())
-      .setSuccessUrl(success).setCancelUrl(cancel).putAllMetadata(md).build();
+    .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
+    .addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L)
+    .setPriceData(SessionCreateParams.LineItem.PriceData.builder().setCurrency("brl").setUnitAmount(amount)
+    .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder().setName(name).build()).build()).build())
+    .setSuccessUrl(success).setCancelUrl(cancel).putAllMetadata(md).build();
     return Session.create(params).getUrl();
   }
   public String subscriptionCheckout(String success, String cancel, String priceId, Map<String,String> md) throws StripeException {
     var params = SessionCreateParams.builder().setMode(SessionCreateParams.Mode.SUBSCRIPTION)
-      .addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L).setPrice(priceId).build())
-      .setSuccessUrl(success).setCancelUrl(cancel).setSubscriptionData(SessionCreateParams.SubscriptionData.builder().putAllMetadata(md).build()).putAllMetadata(md).build();
+    .addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L).setPrice(priceId).build())
+    .setSuccessUrl(success).setCancelUrl(cancel).setSubscriptionData(SessionCreateParams.SubscriptionData.builder().putAllMetadata(md).build()).putAllMetadata(md).build();
     return Session.create(params).getUrl();
   }
 }
