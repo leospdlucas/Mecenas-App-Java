@@ -1,13 +1,19 @@
 
 package app.mecenas.server.api;
-import app.mecenas.server.domain.*; import app.mecenas.server.repo.*; import app.mecenas.server.security.Auth;
+import app.mecenas.server.domain.*; import app.mecenas.server.repo.*; import app.mecenas.server.security.Auth; import app.mecenas.server.service.OfferService; import org.springframework.validation.annotation.Validated; import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity; import org.springframework.web.bind.annotation.*; import java.time.Instant; import java.util.Map;
+<<<<<<< HEAD
 @RestController
 @RequestMapping("/api/offers")
+=======
+@Validated
+@RestController @RequestMapping("/api/offers")
+>>>>>>> 1f6bccc1ecdc206a9380947cbc827c5f8dfabbd1
 public class OfferController {
-  private final ContractOfferRepo offers; private final WorkRepo works; private final Auth auth;
-  public OfferController(ContractOfferRepo o, WorkRepo w, Auth a){ this.offers=o; this.works=w; this.auth=a; }
+  private final ContractOfferRepo offers; private final WorkRepo works; private final Auth auth; private final OfferService service;
+  public OfferController(ContractOfferRepo o, WorkRepo w, Auth a, OfferService s){ this.offers=o; this.works=w; this.auth=a; this.service=s; }
   public record OfferReq(Long workId, java.util.Map<String,Object> termos, String expiraEm){}
+<<<<<<< HEAD
 
   @PostMapping public ResponseEntity<?> create(@RequestBody OfferReq r){
     var me = auth.currentUser().orElse(null); if(me==null) return ResponseEntity.status(401).body(Map.of("error","unauthorized"));
@@ -18,6 +24,9 @@ public class OfferController {
     return ResponseEntity.ok(Map.of("id", co.getId(), "status", co.getStatus()));
   }
 
+=======
+  @PostMapping public ResponseEntity<?> create(@Valid @RequestBody OfferReq r){ return service.create(new OfferService.OfferCreate(r.workId(), r.termos(), r.expiraEm())); }
+>>>>>>> 1f6bccc1ecdc206a9380947cbc827c5f8dfabbd1
   @PostMapping("/{id}/accept") public ResponseEntity<?> accept(@PathVariable Long id){
     var me = auth.currentUser().orElse(null); if(me==null) return ResponseEntity.status(401).body(Map.of("error","unauthorized"));
     var co = offers.findById(id).orElse(null); if(co==null) return ResponseEntity.status(404).body(Map.of("error","not_found"));

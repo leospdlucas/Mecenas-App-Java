@@ -32,3 +32,14 @@ Webhook: `POST /api/webhooks/stripe` marca o pledge como `PAID` (Stripe CLI: `st
 `POST /api/demos/presign` com `{ "key": "uploads/demo.pdf", "contentType":"application/pdf" }`.
 
 > Em produção: trocar o cabeçalho dev por OAuth/OIDC, tratar LGPD e logs/auditoria.
+
+
+### Migração de Roles
+- `User.roles`: agora é `Set<Role>` (Enum) via `@ElementCollection` na tabela `user_roles`.
+- Flyway cria a tabela e migra automaticamente de `users.roles` (string separada por vírgulas), removendo a coluna antiga.
+- `DevAuthFilter`, `OfferService` e `SubscriptionService` atualizados para usar `Role`.
+
+### Testes
+- **DevAuthFilterTest**: mapeamento de roles → authorities.
+- **OfferServiceTest**: garante **403** para usuário sem `PARTNER`.
+- **SubscriptionServiceTest**: verifica seleção de preço por plano.
